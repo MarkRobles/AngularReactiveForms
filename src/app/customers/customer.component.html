@@ -19,13 +19,13 @@
                  required
                  minlength="3"
                   formControlName="firstName"
-                 [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && !firstName.valid }" 
+                 [ngClass]="{'is-invalid': (customerForm.controls.firstName.touched || customerForm.controls.firstName.dirty) && !customerForm.controls.firstName.valid }" 
                  />
           <span class="invalid-feedback">
-            <span *ngIf="firstName.errors?.required">
+            <span *ngIf="customerForm.controls.firstName.errors?.required">
               Please enter your first name.
             </span>
-            <span *ngIf="firstName.errors?.minlength">
+            <span *ngIf="customerForm.controls.firstName.errors?.minlength">
               The first name must be longer than 3 characters.
             </span>
           </span>
@@ -43,12 +43,12 @@
                  required
                  maxlength="50"
                  formControlName="lastName"
-                 [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && !lastName.valid }" />
+                 [ngClass]="{'is-invalid': (customerForm.controls.lastName.touched || customerForm.controls.lastName.dirty) && !customerForm.controls.lastName.valid }" />
           <span class="invalid-feedback">
-            <span *ngIf="lastName.errors?.required">
+            <span *ngIf="customerForm.controls.lastName.errors?.required">
               Please enter your last name.
             </span>
-            <span *ngIf="lastName.errors?.maxlength">
+            <span *ngIf="customerForm.controls.lastName.errors?.maxlength">
               The last name must be less than 50 characters.
             </span>
           </span>
@@ -65,12 +65,12 @@
                  placeholder="Email (required)"
                  required
                  formControlName="email"
-                 [ngClass]="{'is-invalid': (email.touched || email.dirty) && !email.valid }" />
+                 [ngClass]="{'is-invalid': (customerForm.controls.email.touched || customerForm.controls.email.dirty) && !customerForm.controls.email.valid }" />
           <span class="invalid-feedback">
-            <span *ngIf="email.errors?.required">
+            <span *ngIf="customerForm.controls.email.errors?.required">
               Please enter your email address.
             </span>
-            <span *ngIf="email.errors?.email">
+            <span *ngIf="customerForm.controls.email.errors?.email">
               Please enter a valid email address.
             </span>
           </span>

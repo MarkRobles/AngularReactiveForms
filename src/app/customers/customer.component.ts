@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl} from '@angular/forms';
+import { FormGroup,FormControl,FormBuilder} from '@angular/forms';
 
 import { Customer } from './customer';
 
@@ -12,23 +12,33 @@ export class CustomerComponent implements OnInit {
   customerForm!: FormGroup;
   customer = new Customer();
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
-  firstName = new FormControl;
-  lastName = new FormControl;
-  email = new FormControl;
-  sendCatalog = new FormControl(true);
+  // firstName = new FormControl;
+  // lastName = new FormControl;
+  // email = new FormControl;
+  // sendCatalog = new FormControl(true);
 
 
-  ngOnInit()   {
-    this.customerForm = new FormGroup(
-      {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        sendCatalog: this.sendCatalog
-      }
-    );
+  ngOnInit() {
+    //Here we use FormBuilder service to shorten the sintaxis. Now you don´t have to initalize FormGroup and FormControl. FormBuilder do it for you.
+    this.customerForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+     // lastName: { value: 'n/a', disabled: true },//different way of initialize
+      email: '',
+      sendCatalog:true
+    });
+
+//Formgroup approach
+    // this.customerForm = new FormGroup(
+    //   {
+    //     firstName: this.firstName,
+    //     lastName: this.lastName,
+    //     email: this.email,
+    //     sendCatalog: this.sendCatalog
+    //   }
+    // );
   }
 
   // populateTestData(): void {
