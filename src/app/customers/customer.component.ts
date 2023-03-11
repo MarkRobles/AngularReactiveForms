@@ -31,6 +31,25 @@ export class CustomerComponent implements OnInit {
     );
   }
 
+  // populateTestData(): void {
+  //   //setValue() requires we set the value of every form control. If you need to st just some control use patchValue()
+  //   this.customerForm.setValue({
+  //     firstName: 'Pepe ',
+  //     lastName: 'Pecas',
+  //     email: 'pepepecas@gmail.com',
+  //     sendCatalog:false
+  //   });
+  // }
+  
+  populateTestData(): void {
+    //setValue() requires we set the value of every form control. If you need to st just some control use setPatch
+    this.customerForm.patchValue({
+      firstName: 'Pepe ',
+      lastName: 'Pecas',
+      sendCatalog:false
+    });
+   }
+
   save(): void {
     console.log(this.customerForm);
     console.log('Saved: ' + JSON.stringify(this.customerForm.value));
