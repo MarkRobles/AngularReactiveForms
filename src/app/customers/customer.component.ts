@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl,FormBuilder} from '@angular/forms';
+import { FormGroup,FormBuilder,Validators} from '@angular/forms';
 
 import { Customer } from './customer';
 
@@ -23,10 +23,10 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     //Here we use FormBuilder service to shorten the sintaxis. Now you don´t have to initalize FormGroup and FormControl. FormBuilder do it for you.
     this.customerForm = this.fb.group({
-      firstName: '',
-      lastName: '',
+      firstName: ['', [Validators.required,Validators.minLength(3)]],
+      lastName: ['', [Validators.required,Validators.minLength(50)]],
      // lastName: { value: 'n/a', disabled: true },//different way of initialize
-      email: '',
+     email: ['', [Validators.required,Validators.email]],
       sendCatalog:true
     });
 
