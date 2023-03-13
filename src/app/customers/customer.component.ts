@@ -24,9 +24,11 @@ export class CustomerComponent implements OnInit {
     //Here we use FormBuilder service to shorten the sintaxis. Now you don´t have to initalize FormGroup and FormControl. FormBuilder do it for you.
     this.customerForm = this.fb.group({
       firstName: ['', [Validators.required,Validators.minLength(3)]],
-      lastName: ['', [Validators.required,Validators.minLength(50)]],
+      lastName: ['', [Validators.required,Validators.minLength(5)]],
      // lastName: { value: 'n/a', disabled: true },//different way of initialize
-     email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: '',
+     notification:'email',
       sendCatalog:true
     });
 
@@ -56,6 +58,7 @@ export class CustomerComponent implements OnInit {
     this.customerForm.patchValue({
       firstName: 'Pepe ',
       lastName: 'Pecas',
+      email:'pepepecas@gmail.com',
       sendCatalog:false
     });
    }
@@ -64,4 +67,15 @@ export class CustomerComponent implements OnInit {
     console.log(this.customerForm);
     console.log('Saved: ' + JSON.stringify(this.customerForm.value));
   }
+
+  setNotification(notifyVia: string): void { 
+    const phoneControl = this.customerForm.get('phone');
+    if (notifyVia == 'text') {
+      phoneControl?.setValidators(Validators.required);
+    } else { 
+      phoneControl?.clearValidators();
+    }
+    phoneControl?.updateValueAndValidity();
+  }
+
 }
