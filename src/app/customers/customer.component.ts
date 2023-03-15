@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder,Validators, AbstractControl, ValidatorFn} from '@angular/forms';
+import { FormGroup,FormBuilder,Validators, AbstractControl, ValidatorFn, AbstractControlOptions} from '@angular/forms';
 
 
 import { Customer } from './customer';
@@ -58,7 +58,7 @@ export class CustomerComponent implements OnInit {
       emailGroup: this.fb.group({
           email: ['', [Validators.required, Validators.email]],
           confirmEmail:['',Validators.required],
-      }, {validator:emailMatcher}), 
+      }, {validator:emailMatcher}as AbstractControlOptions), 
       phone: '',
       notification: 'email',
      rating:[null,ratingRange(1,5)],
