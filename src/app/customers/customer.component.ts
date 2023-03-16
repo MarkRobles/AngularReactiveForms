@@ -74,6 +74,10 @@ export class CustomerComponent implements OnInit {
     //     sendCatalog: this.sendCatalog
     //   }
     // );
+
+    this.customerForm.get('notification')?.valueChanges.subscribe(
+      value => console.log(value)
+    );
   }
 
   // populateTestData(): void {
