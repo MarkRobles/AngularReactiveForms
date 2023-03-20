@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder,Validators, AbstractControl, ValidatorFn, AbstractControlOptions} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, AbstractControlOptions,FormArray } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 
 import { Customer } from './customer';
@@ -42,6 +43,10 @@ export class CustomerComponent implements OnInit {
   customer = new Customer();
   emailMessage?: string;
 
+  get addresses(): FormArray { 
+    return <FormArray>this.customerForm.get('addresses');
+  }
+
   private validationMessages:any = {
     required: 'Please enter your email address.',
     email:'Please enter a valid email address.'
@@ -68,7 +73,8 @@ export class CustomerComponent implements OnInit {
       phone: '',
       notification: 'email',
      rating:[null,ratingRange(1,5)],
-      sendCatalog:true
+      sendCatalog: true,
+      addresses:    this.fb.array([this.buildAddress()])
     });
 
 //Formgroup approach
@@ -85,12 +91,20 @@ export class CustomerComponent implements OnInit {
       value => this.setNotification(value)
     );
 
+    
+
     const emailControl = this.customerForm.get('emailGroup.email');
-    emailControl?.valueChanges.subscribe(
+    emailControl?.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe(
       value=> this.setMessage(emailControl)
     )
   }
 
+
+  addAddress():void {
+    this.addresses.push(this.buildAddress());
+  } 
   // populateTestData(): void {
   //   //setValue() requires we set the value of every form control. If you need to st just some control use patchValue()
   //   this.customerForm.setValue({
@@ -101,6 +115,19 @@ export class CustomerComponent implements OnInit {
   //   });
   // }
   
+
+  buildAddress(): FormGroup { 
+return  this.fb.group({
+  addressType: 'home',
+  street: '',
+  street2: '',
+  city: '',
+  state: '',
+  zip:''
+})
+
+  }
+
   populateTestData(): void {
     //setValue() requires we set the value of every form control. If you need to st just some control use setPatch
     this.customerForm.patchValue({
